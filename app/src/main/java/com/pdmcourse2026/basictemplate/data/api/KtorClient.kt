@@ -33,6 +33,9 @@ curl https://qjcxdvfzyseuvezacxsd.supabase.co/functions/v1/rankeuca/vote \
 {"ok":true,"message":"Vote registered"}
 */
 object KtorClient {
+  private const val API_KEY = "6cf39f8d-ddac-4b35-9839-32b9f18c8060"
+  private const val BASE_URL = "https://qjcxdvfzyseuvezacxsd.supabase.co/functions/v1/rankeuca/"
+
   val client = HttpClient(OkHttp) {
     // Parseo automático de JSON
     install(ContentNegotiation) {
@@ -53,7 +56,9 @@ object KtorClient {
 
     // Configuración aplicada a todas las peticiones
     defaultRequest {
+      url(BASE_URL)
       header(HttpHeaders.Accept, "application/json")
+      header(HttpHeaders.Authorization, "Bearer $API_KEY")
     }
   }
 }

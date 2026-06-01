@@ -36,4 +36,16 @@ class HomeViewModel : ViewModel() {
             _loading.value = false
         }
     }
+
+    fun vote(optionId: Int) {
+        viewModelScope.launch {
+            repository.vote(optionId)
+                .onSuccess {
+                    loadOptions() // Refresh list after voting
+                }
+                .onFailure { e ->
+                    _error.value = "Error al votar: ${e.message}"
+                }
+        }
+    }
 }
